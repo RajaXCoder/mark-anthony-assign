@@ -5,6 +5,7 @@ import FilterSidebar from "../components/FilterSidebar";
 import SearchBar from "../components/SearchBar";
 import SortOptions from "../components/SortOptions";
 import recipes from "../data/recipes";
+import EmptyRecipes from "../components/EmptyRecipes";
 
 export const DataContext = createContext();
 
@@ -71,11 +72,16 @@ const RecipesPage = () => {
             <SearchBar />
             <SortOptions />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredRecipes.map((recipe) => (
-              <RecipeCard key={recipe.name} recipe={recipe} />
-            ))}
-          </div>
+
+          {filteredRecipes.length === 0 ? (
+            <EmptyRecipes />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredRecipes.map((recipe) => (
+                <RecipeCard key={recipe.name} recipe={recipe} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </DataContext.Provider>
